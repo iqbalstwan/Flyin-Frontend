@@ -1,10 +1,17 @@
 <template>
   <b-container class="register">
-    <h1 style="color:#7e98df;hight:800px">Register</h1>
+    <div style="text-align:left;margin-left:20px">
+      <router-link to="/login">
+        <img src="../assets/icon/back.png" alt="" />
+      </router-link>
+    </div>
+    <h1 style="color:#7e98df">
+      Register
+    </h1>
     <p>Let's create your account</p>
     <b-row class="login-form">
       <b-col>
-        <b-alert show variant="danger" v-show="isError">{{ error }}</b-alert>
+        <!-- <b-alert show variant="danger" v-show="isError">{{ error }}</b-alert> -->
         <b-form>
           <b-row class="component-form" style="margin-top:10px">
             <b-col class="text-left">
@@ -24,7 +31,7 @@
                 type="email"
                 id="email"
                 v-model="form.user_email"
-                placeholder="Masukkan alamat email"
+                placeholder="Input Your Email"
                 required
               ></b-input>
             </b-col>
@@ -47,7 +54,7 @@
                 type="password"
                 id="password"
                 v-model="form.user_password"
-                placeholder="Masukkan kata sandi"
+                placeholder="Input Password"
                 required
               ></b-input>
             </b-col>
@@ -126,7 +133,7 @@ p {
   left: 503px;
   top: 563px;
   margin: 0 auto;
-  margin-top: 10px;
+  margin-top: 0px;
 
   background-color: #7e98df;
   border-radius: 70px;
@@ -170,12 +177,16 @@ export default {
     userRegister() {
       this.register(this.form)
         .then(result => {
-          console.log(result.msg)
+          // console.log(result.msg)
           this.$bvToast.toast(`${result.msg}`, {
             title: 'Success ',
             variant: 'success',
-            solid: true
+            solid: true,
+            autoHideDelay: 1000
           })
+          setTimeout(() => {
+            this.$router.push('/login')
+          }, 2000)
         })
         // const activate = {
         //   user_email: this.form.user_email

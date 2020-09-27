@@ -1,14 +1,14 @@
 <template>
-  <div class="roomchat-container">
+  <b-container fluid>
     <b-row>
-      <b-col md="4" sm="4" class="content">
+      <b-col cols="4" class="content">
         <LeftProfile />
       </b-col>
-      <b-col md="8" sm="8" class="content">
+      <b-col cols="8" class="content">
         <RoomMessage />
       </b-col>
     </b-row>
-  </div>
+  </b-container>
 </template>
 
 <script>

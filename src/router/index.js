@@ -34,6 +34,18 @@ const routes = [
     meta: { requiresPublic: true }
   },
   {
+    path: '/forgot',
+    name: 'Forgot',
+    component: () => import('../views/ForgotPass.vue'),
+    meta: { requiresPublic: true }
+  },
+  {
+    path: '/change',
+    name: 'Change',
+    component: () => import('../views/ResetPass.vue'),
+    meta: { requiresPublic: true }
+  },
+  {
     path: '/register',
     name: 'Register',
     component: () => import('../views/Register.vue'),
@@ -43,7 +55,7 @@ const routes = [
     path: '/roomchat',
     name: 'Roomchat',
     component: () => import('../views/RoomChat.vue'),
-    meta: { requiresPublic: true }
+    meta: { requiresAuth: true }
   }
 ]
 

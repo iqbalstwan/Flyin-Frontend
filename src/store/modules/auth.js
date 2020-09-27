@@ -10,18 +10,34 @@ export default {
     setUser(state, payload) {
       state.user = payload
       state.token = payload.token
+      console.log(payload)
     },
+
     delUser(state) {
       state.user = {}
       state.token = null
     }
   },
   actions: {
+    getUserById(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`http://localhost:3000/user/${payload}`)
+          .then(response => {
+            context.commit('setUser', response.data.data[0])
+            resolve(response.data)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
+    },
     login(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post(`${process.env.VUE_APP_BASE_URL}/user/login`, payload)
+          .post(`http://localhost:3000/user/login`, payload)
           .then(response => {
+            console.log(response.data)
             context.commit('setUser', response.data.data)
             localStorage.setItem('token', response.data.data.token)
             resolve(response.data)
@@ -40,9 +56,8 @@ export default {
     register(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post(`${process.env.VUE_APP_BASE_URL}/user/register`, payload)
+          .post(`http://localhost:3000/user/register`, payload)
           .then(response => {
-            context.commit('setUser', response.data.data)
             console.log(response)
             resolve(response.data)
           })
@@ -55,7 +70,7 @@ export default {
     sendEmail(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post(`${process.env.VUE_APP_BASE_URL}/user/forgot`, payload)
+          .post(`http://localhost:3000/user/forgot`, payload)
           .then(response => {
             resolve(response.data)
           })
@@ -80,7 +95,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .patch(
-            `${process.env.VUE_APP_BASE_URL}/user/change?keys=${payload.keys}`,
+            `http://localhost:3000/user/change?keys=${payload.keys}`,
             payload.form
           )
           .then(response => {

@@ -1,22 +1,18 @@
 <template>
-  <b-container class="login">
-    <h1 style="color:#7e98df">Login</h1>
-    <p>Hi,Welcome back</p>
+  <b-container class="register">
+    <div style="text-align:left;margin-left:20px">
+      <router-link to="/login">
+        <img src="../assets/icon/back.png" alt="" />
+      </router-link>
+    </div>
+    <h1 style="color:#7e98df">
+      Reset
+    </h1>
+    <p>You'll get messages soon on your e-mail</p>
     <b-row class="login-form">
       <b-col>
+        <!-- <b-alert show variant="danger" v-show="isError">{{ error }}</b-alert> -->
         <b-form @submit.prevent="onSubmit">
-          <b-row class="component-form" style="margin-top:40px">
-            <b-col class="text-left">
-              <label for="email">Email</label>
-              <b-input
-                type="email"
-                id="email"
-                v-model="form.user_email"
-                placeholder="Input Your Email"
-                required
-              ></b-input>
-            </b-col>
-          </b-row>
           <b-row class="component-form">
             <b-col class="text-left">
               <label for="password">Password</label>
@@ -30,42 +26,23 @@
             </b-col>
           </b-row>
           <b-row class="component-form">
-            <b-col class="text-right">
-              <router-link to="/forgot">
-                <p style="color: black">Forgot Password?</p>
-              </router-link>
+            <b-col class="text-left">
+              <label for="password">Confirm Password</label>
+              <b-input
+                type="password"
+                id="password"
+                v-model="form.confirm_password"
+                placeholder="Match your password"
+                required
+              ></b-input>
             </b-col>
           </b-row>
           <b-row class="component-form">
-            <b-col class="btnLogin">
-              <b-button type="submit" block>Login</b-button>
-            </b-col>
-          </b-row>
-          <b-row class="component-form">
-            <b-col class="btnGoogle">
-              <b-button type="submit" block>Google</b-button>
+            <b-col class="btnRegister">
+              <b-button type="submit" block>Reset</b-button>
             </b-col>
           </b-row>
         </b-form>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col class="text-center">
-        <p>
-          Don't have an account?
-          <router-link to="/register">
-            <span style="color: #7e98df;cursor:pointer" id="popover-target-1"
-              >Sign up</span
-            >
-          </router-link>
-          <!-- <b-popover
-            target="popover-target-1"
-            triggers="hover"
-            placement="bottom"
-          >
-            <h6>Sign up</h6>
-          </b-popover> -->
-        </p>
       </b-col>
     </b-row>
   </b-container>
@@ -76,7 +53,7 @@ p {
   margin: 0;
 }
 
-.login {
+.register {
   padding: 3vh 0vw;
   /* position: absolute; */
   width: 500px;
@@ -106,16 +83,16 @@ p {
   box-shadow: none;
   border: none;
   outline: none;
-  border-bottom: 2px solid #7e98df;
+  border-bottom: 3px solid #7e98df;
 }
 
-.component-form .btnLogin button {
+.component-form .btnRegister button {
   width: 360px;
-  height: 60px;
+  height: 40px;
   left: 503px;
   top: 563px;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 0px;
 
   background-color: #7e98df;
   border-radius: 70px;
@@ -124,7 +101,7 @@ p {
 
 .component-form .btnGoogle button {
   width: 360px;
-  height: 60px;
+  height: 40px;
   left: 503px;
   top: 563px;
   margin: 0 auto;
@@ -141,33 +118,35 @@ p {
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'FormLogin',
+  name: 'ChangePassword',
   data() {
     return {
-      form: {
-        user_email: '',
-        user_password: ''
-      },
+      form: {},
       isError: false,
+      isSuccess: false,
       error: ''
     }
   },
   methods: {
-    ...mapActions(['login']),
+    ...mapActions(['changePassword']),
     onSubmit() {
-      this.login(this.form)
+      const payload = {
+        keys: this.$route.query.keys,
+        form: this.form
+      }
+      this.changePassword(payload)
         .then(result => {
           console.log(result)
+          this.isError = false
+          this.isSuccess = true
           this.$bvToast.toast(`${result.msg}`, {
             title: 'Success ',
             variant: 'success',
             solid: true
           })
-          this.$router.push('/roomchat')
         })
         .catch(error => {
           this.isError = true
-          console.log(error)
           this.error = error.data.msg
           this.$bvToast.toast(`${error.data.msg}`, {
             title: 'Check it again ',
