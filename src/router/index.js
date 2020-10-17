@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/home',
+    path: '/',
     name: 'Home',
     component: () => import('../views/Home.vue'),
     meta: { requiresAuth: true }
@@ -19,7 +19,8 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ '../views/About.vue')
+      import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/chat',
@@ -79,7 +80,7 @@ router.beforeEach((to, from, next) => {
   } else if (to.matched.some(record => record.meta.requiresPublic)) {
     if (store.getters.isLogin) {
       next({
-        path: '/home'
+        path: '/roomchat'
       })
     } else {
       next()

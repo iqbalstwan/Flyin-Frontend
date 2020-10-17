@@ -3,7 +3,12 @@ import axios from 'axios'
 export default {
   state: {
     profile: {},
-    myFriend: []
+    myFriend: [],
+    room: [],
+    roomChat: [],
+    allRoom: [],
+    roomMsg: [],
+    msg: {}
   },
   mutations: {
     setProfile(state, payload) {
@@ -11,13 +16,34 @@ export default {
     },
     setFriends(state, payload) {
       state.myFriend = payload
+    },
+    setUserRoom(state, payload) {
+      state.setUserRoom = payload
+    },
+    setRoomChat(state, payload) {
+      state.roomChat = payload
+    },
+    setRoom(state, payload) {
+      state.room = payload
+    },
+    setRoomMessage(state, payload) {
+      state.roomMsg = payload[0].messages
+    },
+    clearRoom(state) {
+      state.allRoom = []
+    },
+    setAllRoom(state, payload) {
+      state.allRoom = payload
+    },
+    setMsg(state, payload) {
+      state.msg = payload
     }
   },
   actions: {
     getProfileById(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .get(`http://localhost:3000/profile/${payload}`)
+          .get(`${process.env.VUE_APP_URL}/profile/${payload}`)
           .then(response => {
             context.commit('setProfile', response.data.data)
             resolve(response.data)
@@ -31,7 +57,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .patch(
-            `http://localhost:3000/profile/patchimg/${payload.id}`,
+            `${process.env.VUE_APP_URL}/profile/patchimg/${payload.id}`,
             payload.form
           )
           .then(response => {
@@ -45,7 +71,10 @@ export default {
     patchProfile(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .patch(`http://localhost:3000/profile/${payload.id}`, payload.form)
+          .patch(
+            `${process.env.VUE_APP_URL}/profile/${payload.id}`,
+            payload.form
+          )
           .then(res => {
             resolve(res.data)
           })
@@ -57,7 +86,7 @@ export default {
     addFriend(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post('http://localhost:3000/roomchat/add', payload)
+          .post(`${process.env.VUE_APP_URL}/roomchat/add`, payload)
           .then(res => {
             resolve(res.data.msg)
           })
@@ -69,7 +98,7 @@ export default {
     getAllFriends(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .get(`http://localhost:3000/roomchat/myfriend/${payload}`)
+          .get(`${process.env.VUE_APP_URL}/roomchat/myfriend/${payload}`)
           .then(response => {
             context.commit('setFriends', response.data.data)
             resolve(response.data.msg)
@@ -78,6 +107,75 @@ export default {
             reject(error.response)
           })
       })
+    },
+    postRoom(context, payload) {
+      return new Promise((resolve, reject) => [
+        axios
+          .post(`${process.env.VUE_APP_URL}/roomchat/room`, payload)
+          .then(response => {
+            console.log(response.data)
+            context.commit('setRoom', response.data.data)
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error.response.data.msg)
+          })
+      ])
+    },
+    getRoomUserId(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(
+            `${process.env.VUE_APP_URL}/roomchat/roomuser?friend_id=${payload.friend_id}&user_id=${payload.user_id}`
+          )
+          .then(response => {
+            context.commit('setRoomChat', response.data.data)
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error.response.data.msg)
+          })
+      })
+    },
+    getAllRoom(context, payload) {
+      return new Promise((resolve, reject) => [
+        axios
+          .get(`${process.env.VUE_APP_URL}/roomchat/getroom/${payload}`)
+          .then(response => {
+            context.commit('setAllRoom', response.data.data)
+            resolve(response)
+          })
+          .catch(err => {
+            reject(err.response.data.msg)
+          })
+      ])
+    },
+    getRoomMessage(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${process.env.VUE_APP_URL}/roomchat/roomid/${payload}`)
+          .then(response => {
+            resolve(response)
+            context.commit('setRoomMessage', response.data.data)
+          })
+          .catch(error => {
+            reject(error.response.data.msg)
+          })
+      })
+    },
+    postMessage(context, payload) {
+      return new Promise((resolve, reject) => [
+        axios
+          .post(`${process.env.VUE_APP_URL}/roomchat/msg`, payload)
+          .then(response => {
+            console.log(response.data)
+            context.commit('setMsg', response.data.data)
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error.response.data.msg)
+          })
+      ])
     }
   },
   getters: {
@@ -86,6 +184,21 @@ export default {
     },
     myFriend(state) {
       return state.myFriend
+    },
+    room(state) {
+      return state.room
+    },
+    roomChat(state) {
+      return state.roomChat
+    },
+    allRoom(state) {
+      return state.allRoom
+    },
+    roomMsg(state) {
+      return state.roomMsg
+    },
+    messaging(state) {
+      return state.msg
     }
   }
 }

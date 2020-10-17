@@ -22,7 +22,7 @@ export default {
     getUserById(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .get(`http://localhost:3000/user/${payload}`)
+          .get(`${process.env.VUE_APP_URL}/user/${payload}`)
           .then(response => {
             context.commit('setUser', response.data.data[0])
             resolve(response.data)
@@ -35,7 +35,7 @@ export default {
     login(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post(`http://localhost:3000/user/login`, payload)
+          .post(`${process.env.VUE_APP_URL}/user/login`, payload)
           .then(response => {
             console.log(response.data)
             context.commit('setUser', response.data.data)
@@ -56,7 +56,7 @@ export default {
     register(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post(`http://localhost:3000/user/register`, payload)
+          .post(`${process.env.VUE_APP_URL}/user/register`, payload)
           .then(response => {
             console.log(response)
             resolve(response.data)
@@ -70,7 +70,7 @@ export default {
     sendEmail(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post(`http://localhost:3000/user/forgot`, payload)
+          .post(`${process.env.VUE_APP_URL}/user/forgot`, payload)
           .then(response => {
             resolve(response.data)
           })
@@ -95,7 +95,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .patch(
-            `http://localhost:3000/user/change?keys=${payload.keys}`,
+            `${process.env.VUE_APP_URL}/user/change?keys=${payload.keys}`,
             payload.form
           )
           .then(response => {

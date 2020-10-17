@@ -1,18 +1,29 @@
 <template>
   <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
-    <router-view />
+    <Loading :isLoading="isLoading" />
+    <div v-if="!isLoading">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+import Loading from './components/LoadingScreen'
 
 export default {
   name: 'App',
+  components: {
+    Loading
+  },
+  data() {
+    return { isLoading: true }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false
+    }, 2000)
+  },
   methods: {
     ...mapActions(['interceptorRequest', 'interceptorResponse'])
   },

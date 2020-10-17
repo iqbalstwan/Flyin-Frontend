@@ -13,35 +13,19 @@
                 style="width: 150px;
         height: 150px;margin-bottom:10px; border-radius: 30px;"
               ></b-img>
-              <input
-                type="file"
-                ref="file"
-                @change="updateImg"
-                style="display: none"
-              />
-              <h6
-                @click="$refs.file.click()"
-                style="cursor: pointer;margin-bottom:20px"
-              >
+              <input type="file" ref="file" @change="updateImg" style="display: none" />
+              <h6 @click="$refs.file.click()" style="cursor: pointer;margin-bottom:20px">
                 Edit
                 <b-icon icon="pencil-fill"></b-icon>
               </h6>
               <h5 style="text-align:left;margin-left:20px">Username</h5>
-              <h6 style="text-align:left;margin-left:20px;color:grey">
-                {{ user.user_name }}
-              </h6>
+              <h6 style="text-align:left;margin-left:20px;color:grey">{{ user.user_name }}</h6>
               <h5 style="text-align:left;margin-left:20px">Email</h5>
-              <h6 style="text-align:left;margin-left:20px;color:grey">
-                {{ user.user_email }}
-              </h6>
+              <h6 style="text-align:left;margin-left:20px;color:grey">{{ user.user_email }}</h6>
               <h5 style="text-align:left;margin-left:20px">Phone</h5>
-              <h6 style="text-align:left;margin-left:20px;color:grey">
-                {{ user.user_phone }}
-              </h6>
+              <h6 style="text-align:left;margin-left:20px;color:grey">{{ user.user_phone }}</h6>
               <h5 style="text-align:left;margin-left:20px">Bio</h5>
-              <h6 style="text-align:left;margin-left:20px;color:grey">
-                {{ user.profile_desc }}
-              </h6>
+              <h6 style="text-align:left;margin-left:20px;color:grey">{{ user.profile_desc }}</h6>
               <GmapMap
                 :center="coordinate"
                 :zoom="12"
@@ -60,15 +44,10 @@
                 v-b-modal.modal-1
                 v-on:click="setUpdate()"
                 style="background:#7e98df;border:white"
-                >Edit Profile</b-button
-              >
+              >Edit Profile</b-button>
               <b-modal id="modal-1" title="Update" :hide-footer="true">
                 <b-form>
-                  <b-form-group
-                    id="input-group-1"
-                    label=" Username:"
-                    label-for="input-1"
-                  >
+                  <b-form-group id="input-group-1" label=" Username:" label-for="input-1">
                     <b-form-input
                       id="input-1"
                       type="text"
@@ -78,11 +57,7 @@
                     ></b-form-input>
                   </b-form-group>
 
-                  <b-form-group
-                    id="input-group-1"
-                    label="Phone:"
-                    label-for="input-1"
-                  >
+                  <b-form-group id="input-group-1" label="Phone:" label-for="input-1">
                     <b-form-input
                       id="input-1"
                       type="text"
@@ -92,11 +67,7 @@
                     ></b-form-input>
                   </b-form-group>
 
-                  <b-form-group
-                    id="input-group-1"
-                    label="Bio:"
-                    label-for="input-1"
-                  >
+                  <b-form-group id="input-group-1" label="Bio:" label-for="input-1">
                     <b-form-input
                       id="input-1"
                       type="text"
@@ -105,18 +76,15 @@
                       placeholder="Bio"
                     ></b-form-input>
                   </b-form-group>
-                  <b-button @click="Update">Update</b-button>
+                  <b-button @click="Update" style="background:#7e98df;border:white">Update</b-button>
                 </b-form>
               </b-modal>
               <h5
                 @click.prevent="handleLogout"
                 style="cursor:pointer;color:#7e98df;margin-top:10px"
-              >
-                Logout
-              </h5>
+              >Logout</h5>
             </div>
-          </b-sidebar>
-          Flyin
+          </b-sidebar>Flyin
         </h1>
       </div>
       <div>
@@ -128,23 +96,14 @@
           style="cursor:pointer;box-shadow:none;border:none;margin-right:25px"
           id="set-popover"
         ></b-img>
-        <b-popover
-          placement="bottomleft"
-          target="set-popover"
-          triggers="click"
-          variant="primary"
-        >
-          <h5 style="color:white;cursor:pointer">
-            <img src="../assets/icon/Settings.png" alt="" /> Setting
+        <b-popover placement="bottomleft" target="set-popover" triggers="click" variant="primary">
+          <h5 style="color:white;cursor:pointer" v-b-toggle.side-profile>
+            <img src="../assets/icon/Settings.png" alt /> Setting
           </h5>
           <h5 style="color:white;cursor:pointer;" v-b-modal.modal-2>
             <b-modal id="modal-2" title="Invite Friend" :hide-footer="true">
               <b-form>
-                <b-form-group
-                  id="input-group-1"
-                  label=" Friend Email:"
-                  label-for="input-1"
-                >
+                <b-form-group id="input-group-1" label=" Friend Email:" label-for="input-1">
                   <b-form-input
                     id="input-1"
                     type="text"
@@ -156,18 +115,13 @@
 
                 <b-button
                   @click="addFriends"
-                  style="background:#7e98df;border:white"
-                  >Invite</b-button
-                >
+                  style="background:#7e98df;border:white;cursor:pointer"
+                >Invite</b-button>
               </b-form>
             </b-modal>
-            <img src="../assets/icon/Invite.png" alt="" /> Invite
+            <img src="../assets/icon/Invite.png" alt /> Invite
           </h5>
-          <h5
-            @click="Friend"
-            style="color:white;cursor:pointer;"
-            v-b-modal.modal-3
-          >
+          <h5 @click="Friend" style="color:white;cursor:pointer;" v-b-modal.modal-3>
             <b-modal id="modal-3" title="List Friend" :hide-footer="true">
               <b-row
                 style="display:flex;justify-content:space-around;margin:40px"
@@ -176,10 +130,7 @@
                 :key="index"
               >
                 <div>
-                  <b-img
-                    :src="url + value.profile_img"
-                    style="width:64px;border-radius: 20px;"
-                  ></b-img>
+                  <b-img :src="url + value.profile_img" style="width:64px;border-radius: 20px;"></b-img>
                 </div>
                 <div>
                   <h6>{{ value.user_name }}</h6>
@@ -187,53 +138,47 @@
                   <h6 style="color:grey;">{{ value.profile_desc }}</h6>
                 </div>
                 <b-button
+                  @click="createRoom(value.friend_id)"
                   class="btn btn-primary button"
                   style="background:#7e98df;border:none;height:40px"
-                  >Go</b-button
-                >
+                >Chat</b-button>
               </b-row>
             </b-modal>
-            <img src="../assets/icon/Contacts.png" alt="" />Contact
+            <img src="../assets/icon/Contacts.png" alt />Contact
           </h5>
         </b-popover>
       </div>
     </b-row>
     <b-row class="searching" style="margin-top:30px">
       <div>
-        <b-form-input
-          class="search"
-          placeholder="Type a message"
-        ></b-form-input>
+        <b-form-input class="search" placeholder="Type a message"></b-form-input>
       </div>
       <div>
-        <img
-          src="../assets/icon/Plus.png"
-          alt=""
-          style="margin-top:28px;margin-right:28px"
-        />
+        <img src="../assets/icon/Plus.png" alt style="margin-top:28px;margin-right:28px" />
       </div>
     </b-row>
     <b-row class="mt-4">
-      <b-col
-        ><div>
+      <b-col>
+        <div>
+          <b-button
+            @click="getRoom"
+            class="btn btn-primary button"
+            style="background:#7e98df;border:none"
+          >All</b-button>
           <b-button
             class="btn btn-primary button"
-            style="background:#7e98df;border:none"
-            >All</b-button
-          ><b-button
-            class="btn btn-primary button"
             style="margin-right:20px;margin-left:20px;background:#7e98df;border:none"
-            >Important</b-button
-          ><b-button
+          >Important</b-button>
+          <b-button
+            @click="clearRoom"
             class="btn btn-primary button"
             style="background:#7e98df;border:none"
-            >Unread</b-button
-          >
-        </div></b-col
-      >
+          >Unread</b-button>
+        </div>
+      </b-col>
     </b-row>
     <div class="profile-chat">
-      <b-row class="chat-list" v-for="(value, index) in friends" :key="index">
+      <b-row class="chat-list" v-for="(value, index) in allRoom" :key="index">
         <b-col cols="3">
           <b-img
             :src="url + value.profile_img"
@@ -242,12 +187,14 @@
           ></b-img>
         </b-col>
         <b-col cols="6">
-          <p class="chat-room">{{ value.user_name }}</p>
-          <p :class="value.class" v-if="value.isSender">Me: {{ value.msg }}</p>
-          <p :class="value.class" v-else>{{ value.msg }}</p>
+          <p class="chat-room">
+            <strong>{{ value.user_name }}</strong>
+          </p>
+          <p :class="value.class" v-if="value.isSender">{{ value.msg }}</p>
+          <p :class="value.class" v-else style="color:grey">Dummy</p>
         </b-col>
         <b-col cols="3" class="time-room">
-          <p>{{ value.time }}</p>
+          <p>17.59</p>
         </b-col>
       </b-row>
     </div>
@@ -257,7 +204,7 @@
 <style scoped>
 .profile {
   /* width: 350px; */
-  height: 900px;
+  height: 800px;
   top: 0px;
   background: white;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
@@ -295,10 +242,15 @@
 .profile .profile-chat .time-room {
   margin-top: 20px;
 }
+
+.profile .profile-chat {
+  height: 550px;
+  overflow: auto;
+}
 </style>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 
 // import SideProfile from '../components/SideProfile'
 export default {
@@ -321,29 +273,8 @@ export default {
         profile_desc: ''
       },
       friendEmail: '',
-      rooms: [
-        {
-          img: require('../assets/profile/mom.png'),
-          name: 'Theresa Webb',
-          msg: 'mantapp brotherr',
-          class: 'unread',
-          time: '15:20'
-        },
-        {
-          img: require('../assets/profile/mom.png'),
-          name: 'Calvin Flores',
-          msg: 'Yomann',
-          class: 'unread',
-          time: '15:13'
-        },
-        {
-          img: require('../assets/profile/mom.png'),
-          name: 'Gregory Bell',
-          msg: 'Skuyyy',
-          class: 'unread',
-          time: '15:13'
-        }
-      ]
+      friendId: ''
+      //   allRooms: '',
     }
   },
   mounted() {
@@ -352,6 +283,7 @@ export default {
   created() {
     this.$getLocation()
       .then(coordinates => {
+        //   to database
         this.coordinate = {
           lat: coordinates.lat,
           lng: coordinates.lng
@@ -370,8 +302,13 @@ export default {
       'getAllFriends',
       'getUserById',
       'patchProfile',
-      'addFriend'
+      'addFriend',
+      'postRoom',
+      'getUserRoom',
+      'getRoomMessage',
+      'getAllRoom'
     ]),
+    ...mapMutations(['clearRoom']),
     updateImg(event) {
       this.formImage.profile_img = event.target.files[0]
       const data = new FormData()
@@ -444,7 +381,7 @@ export default {
           })
         })
         .catch(error => {
-          this.$bvToast.toast(`${error.data.msg}`, {
+          this.$bvToast.toast(`${error}`, {
             title: 'Check it again ',
             variant: 'danger',
             solid: true
@@ -476,13 +413,47 @@ export default {
         lat: position.latLng.lat(),
         lng: position.latLng.lng()
       }
+    },
+    createRoom(data) {
+      const setData = {
+        user_id: this.user.user_id,
+        friend_id: data
+      }
+      this.postRoom(setData)
+        .then(result => {
+          this.$bvToast.toast(`${result.data.msg}`, {
+            title: 'Info ',
+            variant: 'info',
+            solid: true
+          })
+        })
+        .catch(error => {
+          this.$bvToast.toast(`${error}`, {
+            title: 'Check it again ',
+            variant: 'danger',
+            solid: true
+          })
+        })
+    },
+    getRoom() {
+      this.getAllRoom(this.user.user_id)
+    },
+    postRoomChat(value) {
+      console.log(value)
+      this.roomId = value.room_id
+      this.friendId = value.friend_id
+      this.getRoomMessage(value.roomchat_id)
     }
   },
   computed: {
     ...mapGetters({
       profile: 'getProfile',
       user: 'getUser',
-      friends: 'myFriend'
+      friends: 'myFriend',
+      roomy: 'roomChat',
+      roomData: 'room',
+      roomMsg: 'roomMsg',
+      allRoom: 'allRoom'
     })
   }
 }
