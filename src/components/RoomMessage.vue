@@ -189,10 +189,9 @@ export default {
       }
 
       console.log(setData)
-      this.message = ''
-      console.log(setData)
       this.postMessage(setData)
-      this.socket.emit('chatMsg', setData)
+      // this.socket.emit('roomMsg', setData)
+      this.message = ''
     },
     clickMarker(position) {
       console.log('clicked')
@@ -205,11 +204,11 @@ export default {
     }
   },
   mounted() {
-    // this.socket.on('chatMessage', data => {
-    //   this.messages.push(data)
-    // })
+    this.socket.on('chatMessage', data => {
+      this.messages.push(data)
+    })
     this.socket.on('chatMsg', data => {
-      this.socketMsg(data)
+      this.messages.push(data)
     })
   },
   computed: {

@@ -358,11 +358,8 @@ export default {
         })
     },
     delImg() {
-      // console.log(this.user.user_id)
-      // const data = this.user.profile_img
       const setData = {
         id: this.user.user_id
-        // form: data
       }
       console.log(setData)
       this.deleteImg(setData)
@@ -487,18 +484,11 @@ export default {
       this.getAllRoom(this.user.user_id)
     },
     getRoomChat(value) {
-      // console.log(value)
       const payload = {
         roomId: value.roomchat_id,
         friendId: value.friend_id
       }
-      // console.log(payload)
-      // this.roomId = value.roomchat_id
-      // this.friendId = value.friend_id
-      // this.profileImg = value.profile_img
-      // // console.log(this.roomId)
       this.getRoomMessage(payload)
-      // // console.log(this.getRoomMessage)
       const setData = {
         friend_id: this.friendId,
         user_id: this.user.user_id,

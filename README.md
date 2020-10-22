@@ -7,8 +7,6 @@
     <a href="https://github.com/iqbalstwan/Flyin-Frontend/issues">Request Feature</a>
   </p>
 
-![Image Banner](https://user-images.githubusercontent.com/41566487/96096198-c7ffae80-0ef9-11eb-9281-91d4fe0ac355.jpg)
-
 ## About The Project
 
 Flyin is a messaging app based on website.
