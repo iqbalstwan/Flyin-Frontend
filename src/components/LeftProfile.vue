@@ -11,12 +11,16 @@
               <b-img
                 :src="url + user.profile_img"
                 style="width: 150px;
-        height: 150px;margin-bottom:10px; border-radius: 30px;"
+                height: 150px;margin-bottom:10px; border-radius: 30px;"
               ></b-img>
               <input type="file" ref="file" @change="updateImg" style="display: none" />
               <h6 @click="$refs.file.click()" style="cursor: pointer;margin-bottom:20px">
                 Edit
                 <b-icon icon="pencil-fill"></b-icon>
+              </h6>
+              <h6 @click.prevent="delImg()" style="cursor: pointer; margin-top: 2px">
+                delete
+                <b-icon icon="trash"></b-icon>
               </h6>
               <h5 style="text-align:left;margin-left:20px">Username</h5>
               <h6 style="text-align:left;margin-left:20px;color:grey">{{ user.user_name }}</h6>
@@ -28,7 +32,7 @@
               <h6 style="text-align:left;margin-left:20px;color:grey">{{ user.profile_desc }}</h6>
               <GmapMap
                 :center="coordinate"
-                :zoom="12"
+                :zoom="20"
                 map-type-id="terrain"
                 style="width: 320px; height: 300px"
               >
@@ -122,7 +126,7 @@
             <img src="../assets/icon/Invite.png" alt /> Invite
           </h5>
           <h5 @click="Friend" style="color:white;cursor:pointer;" v-b-modal.modal-3>
-            <b-modal id="modal-3" title="List Friend" :hide-footer="true">
+            <b-modal id="modal-3" size="md" title="List Friend" :hide-footer="true">
               <b-row
                 style="display:flex;justify-content:space-around;margin:40px"
                 class="list-friend"
@@ -181,9 +185,10 @@
       <b-row class="chat-list" v-for="(value, index) in allRoom" :key="index">
         <b-col cols="3">
           <b-img
+            @click="getRoomChat(value)"
             :src="url + value.profile_img"
             class="img-room"
-            style="width:64px;border-radius: 20px;"
+            style="width:64px;border-radius: 20px;cursor:pointer"
           ></b-img>
         </b-col>
         <b-col cols="6">
@@ -191,7 +196,7 @@
             <strong>{{ value.user_name }}</strong>
           </p>
           <p :class="value.class" v-if="value.isSender">{{ value.msg }}</p>
-          <p :class="value.class" v-else style="color:grey">Dummy</p>
+          <p :class="value.class" v-else style="color:grey">online</p>
         </b-col>
         <b-col cols="3" class="time-room">
           <p>17.59</p>
@@ -270,8 +275,10 @@ export default {
         user_id: '',
         user_name: '',
         user_phone: '',
-        profile_desc: ''
+        profile_desc: '',
+        profile_img: {}
       },
+      roomId: '',
       friendEmail: '',
       friendId: ''
       //   allRooms: '',
@@ -281,23 +288,33 @@ export default {
     this.getAllFriends(this.user.user_id)
   },
   created() {
+    this.getUserById(this.user.user_id)
     this.$getLocation()
       .then(coordinates => {
-        //   to database
         this.coordinate = {
           lat: coordinates.lat,
           lng: coordinates.lng
         }
-        // console.log(this.coordinate)
+        const payload = {
+          id: this.user.user_id,
+          data: {
+            lat: this.coordinate.lat,
+            lng: this.coordinate.lng,
+            user_updated_at: new Date()
+          }
+        }
+        // console.log(payload)
+        this.updateMap(payload)
       })
       .catch(error => {
-        alert(error)
+        console.log(error)
       })
   },
   methods: {
     ...mapActions([
       'logout',
       'patchProfileImage',
+      'deleteImg',
       'getProfileById',
       'getAllFriends',
       'getUserById',
@@ -305,8 +322,10 @@ export default {
       'addFriend',
       'postRoom',
       'getUserRoom',
+      'getRoomUserId',
       'getRoomMessage',
-      'getAllRoom'
+      'getAllRoom',
+      'updateMap'
     ]),
     ...mapMutations(['clearRoom']),
     updateImg(event) {
@@ -317,6 +336,7 @@ export default {
         id: this.user.user_id,
         form: data
       }
+      console.log(payload)
       this.patchProfileImage(payload)
         .then(result => {
           console.log(result)
@@ -331,6 +351,33 @@ export default {
         .catch(error => {
           console.log(error)
           this.$bvToast.toast(`${error.data.msg}`, {
+            title: 'Check it again ',
+            variant: 'danger',
+            solid: true
+          })
+        })
+    },
+    delImg() {
+      // console.log(this.user.user_id)
+      // const data = this.user.profile_img
+      const setData = {
+        id: this.user.user_id
+        // form: data
+      }
+      console.log(setData)
+      this.deleteImg(setData)
+        .then(response => {
+          console.log(response)
+          this.$bvToast.toast(`${response.msg}`, {
+            title: 'Info ',
+            variant: 'success',
+            solid: true
+          })
+          // this.formImage = {}
+          this.getUserById(this.user.user_id)
+        })
+        .catch(error => {
+          this.$bvToast.toast(`${error}`, {
             title: 'Check it again ',
             variant: 'danger',
             solid: true
@@ -419,6 +466,7 @@ export default {
         user_id: this.user.user_id,
         friend_id: data
       }
+      console.log(setData)
       this.postRoom(setData)
         .then(result => {
           this.$bvToast.toast(`${result.data.msg}`, {
@@ -438,11 +486,26 @@ export default {
     getRoom() {
       this.getAllRoom(this.user.user_id)
     },
-    postRoomChat(value) {
-      console.log(value)
-      this.roomId = value.room_id
-      this.friendId = value.friend_id
-      this.getRoomMessage(value.roomchat_id)
+    getRoomChat(value) {
+      // console.log(value)
+      const payload = {
+        roomId: value.roomchat_id,
+        friendId: value.friend_id
+      }
+      // console.log(payload)
+      // this.roomId = value.roomchat_id
+      // this.friendId = value.friend_id
+      // this.profileImg = value.profile_img
+      // // console.log(this.roomId)
+      this.getRoomMessage(payload)
+      // // console.log(this.getRoomMessage)
+      const setData = {
+        friend_id: this.friendId,
+        user_id: this.user.user_id,
+        profile_img: this.profileImg
+      }
+      // console.log(setData)
+      this.getRoomUserId(setData)
     }
   },
   computed: {

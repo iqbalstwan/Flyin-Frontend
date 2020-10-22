@@ -4,12 +4,7 @@
       <div class="side-profile-header">
         <b-img :src="'http://localhost:3000/' + profile.profile_img"></b-img>
         <div class="edit-icon">
-          <input
-            type="file"
-            ref="file"
-            @change="upFile"
-            style="display: none"
-          />
+          <input type="file" ref="file" @change="upFile" style="display: none" />
           <p @click="$refs.file.click()" style="cursor: pointer;">
             Change Profile Photo
             <b-icon icon="pencil-fill"></b-icon>
@@ -42,50 +37,34 @@
           <b-col cols="1">
             <b-img :src="require('../assets/icon/Plus.png')" />
           </b-col>
-          <b-col cols="11" @click="handleLogout()"><p>Logout</p></b-col>
+          <b-col cols="11" @click="handleLogout()">
+            <p>Logout</p>
+          </b-col>
         </b-row>
       </div>
     </b-container>
 
     <b-modal id="bv-edit-profile" hide-footer centered>
-      <template v-slot:modal-title>
-        Edit Profile
-      </template>
+      <template v-slot:modal-title>Edit Profile</template>
       <b-form @submit.prevent="onUpdate()">
         <b-form-group label-cols-sm="3" label="Email" label-for="nested-email">
-          <b-form-input
-            id="nested-email"
-            disabled
-            v-model="formProfile.user_email"
-          ></b-form-input>
+          <b-form-input id="nested-email" disabled v-model="formProfile.user_email"></b-form-input>
         </b-form-group>
 
         <b-form-group label-cols-sm="3" label="Name" label-for="nested-name">
-          <b-form-input
-            id="nested-name"
-            required
-            v-model="formProfile.user_name"
-          ></b-form-input>
+          <b-form-input id="nested-name" required v-model="formProfile.user_name"></b-form-input>
         </b-form-group>
 
         <b-form-group label-cols-sm="3" label="Phone" label-for="nested-phone">
-          <b-form-input
-            id="nested-phone"
-            required
-            v-model="formProfile.user_phone"
-          ></b-form-input>
+          <b-form-input id="nested-phone" required v-model="formProfile.user_phone"></b-form-input>
         </b-form-group>
 
-        <b-button type="submit" class="login-btn" style="margin-top: 35px">
-          Save
-        </b-button>
+        <b-button type="submit" class="login-btn" style="margin-top: 35px">Save</b-button>
       </b-form>
     </b-modal>
 
     <b-modal id="bv-location" hide-footer centered size="lg">
-      <template v-slot:modal-title>
-        Location
-      </template>
+      <template v-slot:modal-title>Location</template>
       <GmapMap
         :center="{ lat: +user.user_lat, lng: +user.user_lng }"
         :zoom="17.5"

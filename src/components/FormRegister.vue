@@ -2,12 +2,10 @@
   <b-container class="register">
     <div style="text-align:left;margin-left:20px">
       <router-link to="/login">
-        <img src="../assets/icon/back.png" alt="" />
+        <img src="../assets/icon/back.png" alt />
       </router-link>
     </div>
-    <h1 style="color:#7e98df">
-      Register
-    </h1>
+    <h1 style="color:#7e98df">Register</h1>
     <p>Let's create your account</p>
     <b-row class="login-form">
       <b-col>
@@ -16,12 +14,7 @@
           <b-row class="component-form" style="margin-top:10px">
             <b-col class="text-left">
               <label for="name">Name</label>
-              <b-input
-                id="name"
-                v-model="form.user_name"
-                placeholder="Input your name"
-                required
-              ></b-input>
+              <b-input id="name" v-model="form.user_name" placeholder="Input your name" required></b-input>
             </b-col>
           </b-row>
           <b-row class="component-form">
@@ -73,9 +66,7 @@
           </b-row>
           <b-row class="component-form">
             <b-col class="btnRegister">
-              <b-button type="submit" @click.prevent="userRegister" block
-                >Register</b-button
-              >
+              <b-button type="submit" @click.prevent="userRegister" block>Register</b-button>
             </b-col>
           </b-row>
           <b-row class="component-form">
@@ -176,13 +167,12 @@ export default {
     ...mapActions(['register']),
     userRegister() {
       this.register(this.form)
-        .then(result => {
-          // console.log(result.msg)
-          this.$bvToast.toast(`${result.msg}`, {
-            title: 'Success ',
+        .then(response => {
+          console.log(response)
+          this.$bvToast.toast('Register success', {
+            title: 'Success',
             variant: 'success',
-            solid: true,
-            autoHideDelay: 1000
+            solid: true
           })
           setTimeout(() => {
             this.$router.push('/login')

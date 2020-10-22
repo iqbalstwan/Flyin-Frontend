@@ -54,9 +54,7 @@
         <p>
           Don't have an account?
           <router-link to="/register">
-            <span style="color: #7e98df;cursor:pointer" id="popover-target-1"
-              >Sign up</span
-            >
+            <span style="color: #7e98df;cursor:pointer" id="popover-target-1">Sign up</span>
           </router-link>
           <!-- <b-popover
             target="popover-target-1"
@@ -64,7 +62,7 @@
             placement="bottom"
           >
             <h6>Sign up</h6>
-          </b-popover> -->
+          </b-popover>-->
         </p>
       </b-col>
     </b-row>
@@ -163,7 +161,9 @@ export default {
             variant: 'success',
             solid: true
           })
-          this.$router.push('/roomchat')
+          setTimeout(() => {
+            this.$router.push('/roomchat')
+          }, 2000)
         })
         .catch(error => {
           this.isError = true

@@ -2,12 +2,10 @@
   <b-container class="register">
     <div style="text-align:left;margin-left:20px">
       <router-link to="/login">
-        <img src="../assets/icon/back.png" alt="" />
+        <img src="../assets/icon/back.png" alt />
       </router-link>
     </div>
-    <h1 style="color:#7e98df">
-      Reset
-    </h1>
+    <h1 style="color:#7e98df">Reset</h1>
     <p>You'll get messages soon on your e-mail</p>
     <b-row class="login-form">
       <b-col>
@@ -144,6 +142,9 @@ export default {
             variant: 'success',
             solid: true
           })
+          setTimeout(() => {
+            this.$router.push('/login')
+          }, 2000)
         })
         .catch(error => {
           this.isError = true

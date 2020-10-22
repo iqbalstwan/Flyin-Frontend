@@ -1,10 +1,10 @@
 <template>
   <b-container fluid>
     <b-row>
-      <b-col cols="4" class="content">
+      <b-col cols="12" md="4" class="content">
         <LeftProfile />
       </b-col>
-      <b-col cols="8" class="content">
+      <b-col cols="12" md="8" class="content">
         <RoomMessage />
       </b-col>
     </b-row>
