@@ -9,7 +9,6 @@
     <p>You'll get messages soon on your e-mail</p>
     <b-row class="login-form">
       <b-col>
-        <!-- <b-alert show variant="danger" v-show="isError">{{ error }}</b-alert> -->
         <b-form @submit.prevent="onSubmit">
           <b-row class="component-form">
             <b-col class="text-left">
@@ -103,7 +102,6 @@ p {
 @media screen and (max-width: 728px) {
   .forgot-pass {
     padding: 3vh 0vw;
-    /* position: absolute; */
     width: 100% !important;
     height: 710px;
   }
@@ -113,8 +111,6 @@ p {
 }
 @media (min-width: 729px) and (max-width: 1200px) {
   .forgot-pass {
-    /* padding: 3vh 0vw; */
-    /* position: relative; */
     width: 60% !important;
   }
   .component-form .btnForgot button {

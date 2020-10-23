@@ -135,7 +135,6 @@ export default {
             user_updated_at: new Date()
           }
         }
-        // console.log(payload)
         this.updateMap(payload)
       })
       .catch(error => {
@@ -153,6 +152,7 @@ export default {
         roomchat_id: this.roomMsg.roomchat_id,
         msg: this.message
       }
+      this.postMessage(setData)
       this.socket.emit('roomyMsg', setData)
       this.message = ''
     },
@@ -216,7 +216,6 @@ export default {
 }
 
 .roomchat #chat .receiver {
-  /* float: right; */
   text-align: left;
   width: 200px;
   height: 3.5em;

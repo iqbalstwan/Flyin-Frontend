@@ -51,7 +51,6 @@ p {
 
 .register {
   padding: 3vh 0vw;
-  /* position: absolute; */
   width: 40%;
   height: 710px;
   left: 433px;
@@ -113,7 +112,6 @@ p {
 @media screen and (max-width: 425px) {
   .register {
     padding: 3vh 0vw;
-    /* position: absolute; */
     width: 100% !important;
     height: auto;
   }
@@ -128,7 +126,6 @@ p {
 @media (min-width: 426px) and (max-width: 728px) {
   .register {
     padding: 3vh 0vw;
-    /* position: absolute; */
     width: 100% !important;
     height: 710px;
   }
@@ -142,8 +139,6 @@ p {
 }
 @media (min-width: 729px) and (max-width: 1200px) {
   .register {
-    /* padding: 3vh 0vw; */
-    /* position: relative; */
     width: 60% !important;
   }
   .component-form .btnRegister button {

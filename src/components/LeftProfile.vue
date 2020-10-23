@@ -322,7 +322,6 @@ export default {
             user_updated_at: new Date()
           }
         }
-        // console.log(payload)
         this.updateMap(payload)
       })
       .catch(error => {
@@ -389,7 +388,6 @@ export default {
             variant: 'success',
             solid: true
           })
-          // this.formImage = {}
           this.getUserById(this.user.user_id)
         })
         .catch(error => {
@@ -526,7 +524,6 @@ export default {
         user_id: this.user.user_id,
         profile_img: this.profileImg
       }
-      // console.log(setData)
       this.getRoomUserId(setData)
     }
   },

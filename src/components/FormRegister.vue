@@ -9,7 +9,6 @@
     <p>Let's create your account</p>
     <b-row class="login-form">
       <b-col>
-        <!-- <b-alert show variant="danger" v-show="isError">{{ error }}</b-alert> -->
         <b-form>
           <b-row class="component-form" style="margin-top:10px">
             <b-col class="text-left">
@@ -164,7 +163,6 @@ p {
 @media (min-width: 426px) and (max-width: 728px) {
   .register {
     padding: 3vh 0vw;
-    /* position: absolute; */
     width: 100% !important;
     height: 710px;
   }
@@ -178,8 +176,6 @@ p {
 }
 @media (min-width: 729px) and (max-width: 1200px) {
   .register {
-    /* padding: 3vh 0vw; */
-    /* position: relative; */
     width: 60% !important;
   }
   .component-form .btnRegister button {
@@ -223,15 +219,6 @@ export default {
             this.$router.push('/login')
           }, 2000)
         })
-        // const activate = {
-        //   user_email: this.form.user_email
-        // }
-        // this.activateEmail(activate)
-        //   .then(result => {
-        //     console.log(result)
-        //     this.isError = false
-        //     this.isSuccess = true
-        //   })
         .catch(error => {
           console.log(error)
           this.$bvToast.toast(`${error.data.msg}`, {

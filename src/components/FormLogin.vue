@@ -56,13 +56,6 @@
           <router-link to="/register">
             <span style="color: #7e98df;cursor:pointer" id="popover-target-1">Sign up</span>
           </router-link>
-          <!-- <b-popover
-            target="popover-target-1"
-            triggers="hover"
-            placement="bottom"
-          >
-            <h6>Sign up</h6>
-          </b-popover>-->
         </p>
       </b-col>
     </b-row>
@@ -153,7 +146,6 @@ p {
 }
 @media (min-width: 729px) and (max-width: 1200px) {
   .login {
-    /* padding: 3vh 0vw; */
     position: relative;
     width: 60% !important;
   }
