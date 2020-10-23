@@ -1,6 +1,6 @@
 <template>
   <b-container class="login">
-    <h1 style="color:#7e98df">Login</h1>
+    <h1 style="color:#7e98df;">Login</h1>
     <p>Hi,Welcome back</p>
     <b-row class="login-form">
       <b-col>
@@ -75,12 +75,12 @@ p {
 }
 
 .login {
-  padding: 3vh 0vw;
-  /* position: absolute; */
-  width: 500px;
+  /* padding: 3vh 0vw; */
+  position: relative;
+  width: 40%;
   height: 710px;
-  left: 433px;
-  top: 157px;
+  /* left: 433px;
+  top: 157px; */
 
   background: #ffffff;
   box-shadow: 0px 20px 20px rgba(126, 152, 223, 0.05);
@@ -132,6 +132,40 @@ p {
   color: #7e98df;
   box-sizing: border-box;
   border-radius: 70px;
+}
+
+/* //responsive */
+@media screen and (max-width: 728px) {
+  .login {
+    /* padding: 3vh 0vw; */
+    position: relative;
+    width: 100% !important;
+  }
+  .component-form .btnLogin button {
+    width: 15em;
+    height: 60px;
+  }
+
+  .component-form .btnGoogle button {
+    width: 15em;
+    height: 60px;
+  }
+}
+@media (min-width: 729px) and (max-width: 1200px) {
+  .login {
+    /* padding: 3vh 0vw; */
+    position: relative;
+    width: 60% !important;
+  }
+  .component-form .btnLogin button {
+    width: 15em;
+    height: 60px;
+  }
+
+  .component-form .btnGoogle button {
+    width: 15em;
+    height: 60px;
+  }
 }
 </style>
 

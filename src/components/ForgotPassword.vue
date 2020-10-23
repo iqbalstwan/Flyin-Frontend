@@ -1,13 +1,11 @@
 <template>
-  <b-container class="register">
+  <b-container class="forgot-pass">
     <div style="text-align:left;margin-left:20px">
       <router-link to="/login">
-        <img src="../assets/icon/back.png" alt="" />
+        <img src="../assets/icon/back.png" alt />
       </router-link>
     </div>
-    <h3 style="color:#7e98df">
-      Forgot Password
-    </h3>
+    <h3 style="color:#7e98df">Forgot Password</h3>
     <p>You'll get messages soon on your e-mail</p>
     <b-row class="login-form">
       <b-col>
@@ -26,7 +24,7 @@
             </b-col>
           </b-row>
           <b-row class="component-form">
-            <b-col class="btnRegister">
+            <b-col class="btnForgot">
               <b-button type="submit" block>Send Email</b-button>
             </b-col>
           </b-row>
@@ -41,10 +39,10 @@ p {
   margin: 0;
 }
 
-.register {
+.forgot-pass {
   padding: 3vh 0vw;
   /* position: absolute; */
-  width: 500px;
+  width: 40%;
   height: 710px;
   left: 433px;
   top: 157px;
@@ -74,7 +72,7 @@ p {
   border-bottom: 3px solid #7e98df;
 }
 
-.component-form .btnRegister button {
+.component-form .btnForgot button {
   width: 360px;
   height: 40px;
   left: 503px;
@@ -99,6 +97,29 @@ p {
   color: #7e98df;
   box-sizing: border-box;
   border-radius: 70px;
+}
+
+/* //responsive */
+@media screen and (max-width: 728px) {
+  .forgot-pass {
+    padding: 3vh 0vw;
+    /* position: absolute; */
+    width: 100% !important;
+    height: 710px;
+  }
+  .component-form .btnForgot button {
+    width: 15em;
+  }
+}
+@media (min-width: 729px) and (max-width: 1200px) {
+  .forgot-pass {
+    /* padding: 3vh 0vw; */
+    /* position: relative; */
+    width: 60% !important;
+  }
+  .component-form .btnForgot button {
+    width: 15em;
+  }
 }
 </style>
 

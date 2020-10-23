@@ -3,9 +3,12 @@
     <div class="header">
       <b-row class="room-header">
         <b-col cols="1" class="roomy" align-self="center">
-          <b-img :src="url + '/' + roomMsg.profile_img" style="width:80px;height:80px" />
+          <b-img
+            :src="url + '/' + roomMsg.profile_img"
+            style="width:80px;height:80px;border-radius: 20px"
+          />
         </b-col>
-        <b-col cols="10" align-self="center">
+        <b-col cols="9" md="10" align-self="center">
           <p class="room-name" style="margin-top:20px">{{ roomMsg.user_name}}</p>
           <p class="room-status">{{ room.status }}</p>
         </b-col>
@@ -52,29 +55,30 @@
     <div id="chat">
       <b-container>
         <b-row v-for="(value, index) in roomMsg.dataMsg" :key="index">
-          <!-- <b-col v-if="value.class == 'sender'"> -->
-          <b-col class="sender">
-            <div class="float-left">
-              <!-- <div :class="value.class" class="float-left"> -->
-              <h6 style="margin-left:10px;margin-top:10px">
-                <strong>{{ value.user_name }} :</strong>
-                {{ value.msg }}
-              </h6>
-            </div>
+          <b-col v-if="user.user_id === value.user_id">
+            <b-row class="float-right">
+              <div class="sender">
+                <h6 style="margin-right:20px;margin-top:10px">{{ value.msg }}</h6>
+              </div>
+            </b-row>
           </b-col>
-          <!-- <b-col v-if="value.class == 'receiver'">
-            <div :class="value.class" class="float-right">{{ value.msg }}</div>
-          </b-col>-->
+          <b-col v-else>
+            <b-row class="float-left">
+              <div class="receiver" style="margin-left:10px;margin-top:15px">
+                <h6 style="margin-left:20px;margin-top:10px">{{ value.msg }}</h6>
+              </div>
+            </b-row>
+          </b-col>
         </b-row>
       </b-container>
     </div>
     <b-container class="chatting">
       <b-row>
-        <b-col cols="11">
-          <b-form-input v-model="message" placeholder="Type your message..."></b-form-input>
+        <b-col cols="9" md="11">
+          <b-form-input class="type" v-model="message" placeholder="Type your message..."></b-form-input>
         </b-col>
         <b-col cols="1">
-          <b-button @click="sendMsg" style="background:#7e98df;border:none">
+          <b-button @click="sendMsg" style="background:#7e98df;border:none;">
             <b-img :src="require('../assets/icon/send.png')" />
           </b-button>
         </b-col>
@@ -85,7 +89,7 @@
 
 <script>
 import io from 'socket.io-client'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'Chat',
@@ -140,57 +144,16 @@ export default {
   },
   methods: {
     ...mapActions(['postMessage', 'updateMap', 'getUserById']),
-    sendMessage() {
-      const setData = {
-        username: this.user.user_name,
-        message: this.message
-        // room: this.room
-      }
-      //global = semua orang dapat melihat ... global chatting
-      this.socket.emit('globalMessage', setData)
-
-      //private = hanya diri sendiri yg terlihat ... board ,welcome back
-      // this.socket.emit('privateMessage', setData)
-
-      //broadcast = orang lain bisa lihat kecuali kita ... notifikasi
-      // this.socket.emit('broadcastMessage', setData)
-      //   const setData = {
-      //     username: this.username,
-      //     message: this.message,
-      //     room: this.room
-      //   }
-      //   this.socket.emit('roomMessage', setData)
-      this.message = ''
-      console.log(setData)
-    },
-    getRoomChat(value) {
-      console.log(value)
-      // console.log(value)
-      // this.roomId = value.roomchat_id
-      // this.friendId = value.friend_id
-      // console.log(this.roomId)
-      // this.getRoomMessage(value.roomchat_id)
-      // const payload = {
-      //   friends_id: this.friendId,
-      //   user_id: this.user.user_id
-      // }
-      // console.log(payload)
-      // this.getRoomMessage(payload)
-      // this.getRoomUserId(payload)
-    },
+    ...mapMutations(['socketMsg']),
     sendMsg() {
-      // console.log(value)
-      // this.friendId = value.friend_id
       const setData = {
+        class: 'sender',
         user_id: this.user.user_id,
         friend_id: this.roomMsg.user_id,
         roomchat_id: this.roomMsg.roomchat_id,
         msg: this.message
       }
-
-      console.log(setData)
-      this.postMessage(setData)
-      // this.socket.emit('roomMsg', setData)
+      this.socket.emit('roomyMsg', setData)
       this.message = ''
     },
     clickMarker(position) {
@@ -202,14 +165,6 @@ export default {
         lng: position.latLng.lng()
       }
     }
-  },
-  mounted() {
-    this.socket.on('chatMessage', data => {
-      this.messages.push(data)
-    })
-    this.socket.on('chatMsg', data => {
-      this.messages.push(data)
-    })
   },
   computed: {
     ...mapGetters({
@@ -227,10 +182,6 @@ export default {
 
 <style scoped>
 .roomchat {
-  /* width: 1016px;
-  height: 1024px;
-  left: 350px;
-  top: 0px; */
   height: 800px;
   background: #fafafa;
 }
@@ -255,19 +206,30 @@ export default {
 }
 
 .roomchat #chat .sender {
-  text-align: left;
-  width: 400px;
-  height: 50px;
-  margin: 30px;
+  text-align: right;
+  width: 200px;
+  height: 3.5em;
+  margin: 20px;
   background: #7e98df;
+  color: white;
+  border-radius: 35px 10px 35px 35px;
+}
+
+.roomchat #chat .receiver {
+  /* float: right; */
+  text-align: left;
+  width: 200px;
+  height: 3.5em;
+  background: rgb(187, 107, 121);
   color: white;
   border-radius: 35px 35px 35px 10px;
 }
 
-.roomchat #chat .receiver {
-  width: 200px;
-  height: 50px;
-  background: #ffffff;
-  border-radius: 35px 10px 35px 35px;
+/* //responsive */
+@media screen and (max-width: 320px) {
+  .roomchat .header .room-header .roomy img {
+    width: 50px !important;
+    height: 50px !important;
+  }
 }
 </style>

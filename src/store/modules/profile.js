@@ -37,6 +37,10 @@ export default {
     },
     setMsg(state, payload) {
       state.msg = payload
+    },
+    socketMsg(state, payload) {
+      state.roomMsg.dataMsg.push(payload)
+      console.log(state.roomMsg.dataMsg)
     }
   },
   actions: {

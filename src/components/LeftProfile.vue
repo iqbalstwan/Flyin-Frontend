@@ -167,28 +167,28 @@
           <b-button
             @click="getRoom"
             class="btn btn-primary button"
-            style="background:#7e98df;border:none"
+            style="background:#7e98df;border:none;"
           >All</b-button>
-          <b-button
-            class="btn btn-primary button"
-            style="margin-right:20px;margin-left:20px;background:#7e98df;border:none"
-          >Important</b-button>
           <b-button
             @click="clearRoom"
             class="btn btn-primary button"
-            style="background:#7e98df;border:none"
+            style="background:#7e98df;border:none;margin-left:10px"
           >Unread</b-button>
         </div>
       </b-col>
     </b-row>
     <div class="profile-chat">
-      <b-row class="chat-list" v-for="(value, index) in allRoom" :key="index">
+      <b-row
+        class="chat-list"
+        v-for="(value, index) in allRoom"
+        :key="index"
+        @click="getRoomChat(value)"
+      >
         <b-col cols="3">
           <b-img
-            @click="getRoomChat(value)"
             :src="url + value.profile_img"
             class="img-room"
-            style="width:64px;border-radius: 20px;cursor:pointer"
+            style="width:64px;height:60px;border-radius: 20px;cursor:pointer"
           ></b-img>
         </b-col>
         <b-col cols="6">
@@ -252,10 +252,24 @@
   height: 550px;
   overflow: auto;
 }
+
+/* //responsive */
+@media screen and (max-width: 767px) {
+  .profile .searching .search {
+    width: 12em;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1200px) {
+  .profile .searching .search {
+    width: 9em;
+  }
+}
 </style>
 
 <script>
 import { mapActions, mapMutations, mapGetters } from 'vuex'
+import io from 'socket.io-client'
 
 // import SideProfile from '../components/SideProfile'
 export default {
@@ -265,6 +279,7 @@ export default {
   },
   data() {
     return {
+      socket: io(process.env.VUE_APP_URL),
       coordinate: {
         lat: 0,
         lng: 0
@@ -279,6 +294,7 @@ export default {
         profile_img: {}
       },
       roomId: '',
+      oldRoom: '',
       friendEmail: '',
       friendId: ''
       //   allRooms: '',
@@ -286,6 +302,9 @@ export default {
   },
   mounted() {
     this.getAllFriends(this.user.user_id)
+    this.socket.on('chatFlyin', data => {
+      this.socketMsg(data)
+    })
   },
   created() {
     this.getUserById(this.user.user_id)
@@ -327,7 +346,7 @@ export default {
       'getAllRoom',
       'updateMap'
     ]),
-    ...mapMutations(['clearRoom']),
+    ...mapMutations(['clearRoom', 'socketMsg']),
     updateImg(event) {
       this.formImage.profile_img = event.target.files[0]
       const data = new FormData()
@@ -484,6 +503,19 @@ export default {
       this.getAllRoom(this.user.user_id)
     },
     getRoomChat(value) {
+      if (this.oldRoom) {
+        console.log('room lama')
+        this.socket.emit('changeRoom', {
+          oldRoom: this.oldRoom,
+          newRoom: value.roomchat_id
+        })
+        this.oldRoom = value.roomchat_id
+      } else {
+        console.log('room baru')
+        this.socket.emit('setRoom', { newRoom: value.roomchat_id })
+        this.oldRoom = value.roomchat_id
+      }
+
       const payload = {
         roomId: value.roomchat_id,
         friendId: value.friend_id
