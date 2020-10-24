@@ -1,6 +1,6 @@
 <h1 align='center'>Vue JS - Flyin</h1>
   <p align="center">
-    <a href="/">View Demo</a>
+    <a href="https://flyin.netlify.app">View Demo</a>
     ·
     <a href="https://github.com/iqbalstwan/Flyin-Frontend/issues">Report Bug</a>
     ·
@@ -30,7 +30,7 @@ Flyin is a messaging app based on website.
 4. Add .env file at root folder project
 
 ```sh
-VUE_APP_URL = http://localhost:3000
+VUE_APP_URL = https://backend-flyin.fwdev.online
 ```
 
 5. Type `npm run serve`

@@ -284,7 +284,7 @@ export default {
         lat: 0,
         lng: 0
       },
-      url: 'http://localhost:3000/',
+      url: process.env.VUE_APP_URL,
       formImage: {},
       form: {
         user_id: '',
