@@ -9,7 +9,7 @@
           <b-sidebar id="side-profile" title="Profile" shadow>
             <div class="img-profile">
               <b-img
-                :src="url + user.profile_img"
+                :src="url + '/' + user.profile_img"
                 style="width: 150px;
                 height: 150px;margin-bottom:10px; border-radius: 30px;"
               ></b-img>
@@ -134,7 +134,10 @@
                 :key="index"
               >
                 <div>
-                  <b-img :src="url + value.profile_img" style="width:64px;border-radius: 20px;"></b-img>
+                  <b-img
+                    :src="url + '/' + value.profile_img"
+                    style="width:64px;border-radius: 20px;"
+                  ></b-img>
                 </div>
                 <div>
                   <h6>{{ value.user_name }}</h6>
@@ -186,7 +189,7 @@
       >
         <b-col cols="3">
           <b-img
-            :src="url + value.profile_img"
+            :src="url + '/' + value.profile_img"
             class="img-room"
             style="width:64px;height:60px;border-radius: 20px;cursor:pointer"
           ></b-img>
