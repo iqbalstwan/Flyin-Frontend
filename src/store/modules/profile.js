@@ -8,7 +8,8 @@ export default {
     roomChat: [],
     allRoom: [],
     roomMsg: [],
-    msg: {}
+    msg: {},
+    isSelected: false
   },
   mutations: {
     setProfile(state, payload) {
@@ -34,6 +35,7 @@ export default {
     },
     setAllRoom(state, payload) {
       state.allRoom = payload
+      console.log(state.allRoom)
     },
     setMsg(state, payload) {
       state.msg = payload
@@ -41,6 +43,9 @@ export default {
     socketMsg(state, payload) {
       state.roomMsg.dataMsg.push(payload)
       console.log(state.roomMsg.dataMsg)
+    },
+    setRoomSelected(state, payload) {
+      state.isSelected = payload
     }
   },
   actions: {
@@ -243,6 +248,9 @@ export default {
     },
     messaging(state) {
       return state.msg
+    },
+    getSelect(state) {
+      return state.isSelected
     }
   }
 }

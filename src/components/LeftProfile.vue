@@ -182,6 +182,7 @@
     </b-row>
     <div class="profile-chat">
       <b-row
+        style="cursor:pointer"
         class="chat-list"
         v-for="(value, index) in allRoom"
         :key="index"
@@ -202,7 +203,7 @@
           <p :class="value.class" v-else style="color:grey">online</p>
         </b-col>
         <b-col cols="3" class="time-room">
-          <p>17.59</p>
+          <p>{{ value.user_updated_at.slice(11,16) }}</p>
         </b-col>
       </b-row>
     </div>
@@ -348,7 +349,7 @@ export default {
       'getAllRoom',
       'updateMap'
     ]),
-    ...mapMutations(['clearRoom', 'socketMsg']),
+    ...mapMutations(['clearRoom', 'socketMsg', 'setRoomSelected']),
     updateImg(event) {
       this.formImage.profile_img = event.target.files[0]
       const data = new FormData()
@@ -504,6 +505,7 @@ export default {
       this.getAllRoom(this.user.user_id)
     },
     getRoomChat(value) {
+      this.setRoomSelected(true)
       if (this.oldRoom) {
         console.log('room lama')
         this.socket.emit('changeRoom', {
@@ -538,7 +540,8 @@ export default {
       roomy: 'roomChat',
       roomData: 'room',
       roomMsg: 'roomMsg',
-      allRoom: 'allRoom'
+      allRoom: 'allRoom',
+      isSelected: 'getSelect'
     })
   }
 }

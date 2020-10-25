@@ -89,6 +89,7 @@
 
 <script>
 import io from 'socket.io-client'
+// import Empty from '../components/EmptyChat'
 import { mapActions, mapMutations, mapGetters } from 'vuex'
 
 export default {
@@ -118,6 +119,9 @@ export default {
         status: 'Online'
       }
     }
+  },
+  components: {
+    // Empty
   },
   created() {
     this.getUserById(this.user.user_id)
@@ -174,7 +178,8 @@ export default {
       roomy: 'roomChat',
       roomData: 'room',
       messaging: 'messaging',
-      roomMsg: 'roomMessage'
+      roomMsg: 'roomMessage',
+      isSelected: 'getIsSelected'
     })
   }
 }
