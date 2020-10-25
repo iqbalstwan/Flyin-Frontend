@@ -6,7 +6,7 @@
 
 <style scoped>
 .empty {
-  color: #848484;
+  color: grey;
 }
 @media (max-width: 768px) {
   .empty {
