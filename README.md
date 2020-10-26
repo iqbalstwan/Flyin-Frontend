@@ -9,9 +9,9 @@
 
 ## About The Project
 
-Flyin is a messaging app based on website.
-
 ![Image Banner](https://raw.githubusercontent.com/iqbalstwan/Flyin-Frontend/master/flyin.jpg)
+
+Flyin is a messaging app based on website.
 
 ## Built With
 
