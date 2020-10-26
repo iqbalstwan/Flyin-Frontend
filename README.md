@@ -43,4 +43,9 @@ VUE_APP_URL = https://backend-flyin.fwdev.online
 - [Socket IO](https://socket.io/docs)
 - [Vue Google Maps](https://github.com/xkjyeah/vue-google-maps)
 
+
+### License
+
+&#169; Iqbal Setiawan
+
 ---
