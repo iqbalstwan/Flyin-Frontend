@@ -22,7 +22,7 @@ Flyin is a messaging app based on website.
 
 1. <a href="https://nodejs.org/en/download/">Node Js</a>
 2. Node_modules `npm install` or `yarn install`
-3. Flyin Backend API [`here`](https://https://github.com/iqbalstwan/Flyin-Backend)
+3. Flyin Backend API [`here`](https://github.com/iqbalstwan/Flyin-Backend)
 
 ## Getting Started
 
