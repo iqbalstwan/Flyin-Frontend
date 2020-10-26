@@ -11,6 +11,8 @@
 
 Flyin is a messaging app based on website.
 
+![Image Banner](https://raw.githubusercontent.com/iqbalstwan/Flyin-Frontend/master/flyin.jpg)
+
 ## Built With
 
 [![Vue](https://img.shields.io/badge/Vue-v2.6.12-green)](https://github.com/vuejs/vue)
@@ -41,5 +43,9 @@ VUE_APP_URL = https://backend-flyin.fwdev.online
 - [Vuex](https://vuex.vuejs.org/)
 - [Socket IO](https://socket.io/docs)
 - [Vue Google Maps](https://github.com/xkjyeah/vue-google-maps)
+
+### License
+
+&#169; Iqbal Setiawan
 
 ---
