@@ -11,6 +11,8 @@
 
 Flyin is a messaging app based on website.
 
+![smartmockups_kgbo9b42](https://user-images.githubusercontent.com/67113526/smartmockups_kgptjavv.jpg)
+
 ## Built With
 
 [![Vue](https://img.shields.io/badge/Vue-v2.6.12-green)](https://github.com/vuejs/vue)
